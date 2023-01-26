@@ -385,7 +385,7 @@ module.exports = async function (app) {
                 if (request.project.state !== 'suspended') {
                     resumeProject = true
                     app.log.info(`Stopping project ${request.project.id}`)
-                    await app.containers.stop(request.project)
+                    await app.containers.stop(request.project, { skipBilling: true })
                     await app.auditLog.Project.project.suspended(request.session.User, null, request.project)
                 }
                 await request.project.setProjectStack(stack)
